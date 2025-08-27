@@ -15,6 +15,8 @@ export default function LoginPage() {
   const { setData, loginData } = useAuthStore();
   const { email, password } = loginData;
 
+  console.log(email, password);
+
   return (
     <main className="flex min-h-screen w-full bg-gradient-to-br from-rose-100 via-white to-purple-100">
       {/* Left Side - Quiz Competition Image */}
@@ -61,7 +63,7 @@ export default function LoginPage() {
             <div className="min-h-[70px]">
               <Input
                 label="Email"
-                value={email}
+                value={email || ""}
                 type="email"
                 onChange={(e) => setData("login", { email: e.target.value })}
                 variant="bordered"
@@ -76,7 +78,7 @@ export default function LoginPage() {
                 label="Password"
                 type={showPassword ? "text" : "password"}
                 isRequired
-                value={password}
+                value={password || ""}
                 variant="bordered"
                 onChange={(e) => setData("login", { password: e.target.value })}
                 size="sm"

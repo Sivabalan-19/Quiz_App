@@ -14,8 +14,8 @@ interface RegisterUser {
 }
 
 interface AuthState {
-  loginData: LoginUser | null;
-  registerData: RegisterUser | null;
+  loginData: LoginUser;
+  registerData: RegisterUser;
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
@@ -66,8 +66,6 @@ const useAuthStore = create<AuthState>((set) => ({
       if (!res.ok) throw new Error("Login failed");
 
       const data = await res.json();
-
-      set({ user: data.user, isAuthenticated: true, loading: false });
     } catch (err: any) {
       set({ error: err.message, loading: false });
     }
@@ -86,8 +84,6 @@ const useAuthStore = create<AuthState>((set) => ({
       if (!res.ok) throw new Error("Registration failed");
 
       const data = await res.json();
-
-      set({ user: data.user, isAuthenticated: true, loading: false });
     } catch (err: any) {
       set({ error: err.message, loading: false });
     }
