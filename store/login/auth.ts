@@ -1,34 +1,57 @@
 import { create } from "zustand";
 
 interface LoginUser {
-  email: string;
-  password: string;
+  email: string | null;
+  password: string | null;
 }
 
 interface RegisterUser {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
+  firstName: string | null;
+  lastName: string | null;
+  email: string | null;
+  password: string | null;
+  confirmPassword: string | null;
 }
 
 interface AuthState {
-  user: LoginUser | RegisterUser | null;
+  loginData: LoginUser | null;
+  registerData: RegisterUser | null;
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
   login: (user: LoginUser) => Promise<void>;
   register: (user: RegisterUser) => Promise<void>;
   logout: () => void;
+  setData: (
+    form: "login" | "register",
+    data: Partial<LoginUser | RegisterUser>
+  ) => void;
   reset: () => void;
 }
 
 const useAuthStore = create<AuthState>((set) => ({
-  user: null,
+  loginData: {
+    email: null,
+    password: null,
+  },
+  registerData: {
+    firstName: null,
+    lastName: null,
+    email: null,
+    password: null,
+    confirmPassword: null,
+  },
   isAuthenticated: false,
   loading: false,
   error: null,
+
+  setData: (form: "login" | "register", data: any) =>
+    set((state) => ({
+      [form === "login" ? "loginData" : "registerData"]: {
+        ...(form === "login" ? state.loginData : state.registerData),
+        ...data,
+      },
+    })),
 
   login: async (user: LoginUser) => {
     try {
@@ -71,11 +94,26 @@ const useAuthStore = create<AuthState>((set) => ({
   },
 
   logout: () => {
-    set({ user: null, isAuthenticated: false });
+    set({ isAuthenticated: false });
   },
 
   reset: () => {
-    set({ user: null, isAuthenticated: false, loading: false, error: null });
+    set({
+      loginData: {
+        email: null,
+        password: null,
+      },
+      registerData: {
+        firstName: null,
+        lastName: null,
+        email: null,
+        password: null,
+        confirmPassword: null,
+      },
+      isAuthenticated: false,
+      loading: false,
+      error: null,
+    });
   },
 }));
 

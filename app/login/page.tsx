@@ -12,7 +12,8 @@ import { useAuthStore } from "@/store";
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
-  const { login } = useAuthStore();
+  const { setData, loginData } = useAuthStore();
+  const { email, password } = loginData;
 
   return (
     <main className="flex min-h-screen w-full bg-gradient-to-br from-rose-100 via-white to-purple-100">
@@ -60,7 +61,9 @@ export default function LoginPage() {
             <div className="min-h-[70px]">
               <Input
                 label="Email"
+                value={email}
                 type="email"
+                onChange={(e) => setData("login", { email: e.target.value })}
                 variant="bordered"
                 isRequired
                 size="sm"
@@ -73,7 +76,9 @@ export default function LoginPage() {
                 label="Password"
                 type={showPassword ? "text" : "password"}
                 isRequired
+                value={password}
                 variant="bordered"
+                onChange={(e) => setData("login", { password: e.target.value })}
                 size="sm"
                 className="border-rose-300 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 focus:outline-none transition duration-200"
                 endContent={
