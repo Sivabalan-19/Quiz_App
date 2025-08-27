@@ -2,17 +2,14 @@
 
 import { GoogleIcon } from "@/components/icons";
 import { Button } from "@heroui/button";
-import { Checkbox } from "@heroui/checkbox";
 import { Input } from "@heroui/input";
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
 import Link from "next/link";
-import { useAuthStore } from "@/store";
+import { useState } from "react";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
-
-  const { login } = useAuthStore();
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
     <main className="flex min-h-screen w-full bg-gradient-to-br from-rose-100 via-white to-purple-100">
@@ -21,25 +18,27 @@ export default function LoginPage() {
         <div className="absolute inset-0 bg-black bg-opacity-20"></div>
       </div>
 
-      {/* Right Side - Login Form */}
+      {/* Right Side - Register Form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white/80 rounded-xl shadow-2xl">
-        <div className="w-full max-w-md space-y-8">
+        <div className="w-full max-w-md space-y-6">
           {/* Logo and Header */}
           <div className="text-center">
             <h2 className="text-3xl font-bold text-gray-900 mb-2">
-              Welcome back
+              Create your account
             </h2>
-            <p className="text-gray-600">Sign in to your account to continue</p>
+            <p className="text-gray-600">
+              Join us and start your journey today
+            </p>
           </div>
 
-          {/* Google Sign In */}
+          {/* Google Sign Up */}
           <div className="space-y-4">
             <Button
               variant="bordered"
               startContent={<GoogleIcon />}
               className="w-full flex items-center justify-center px-4 py-3 border border-rose-300 rounded-lg shadow-sm  text-sm font-medium text-rose-700  focus:outline-none  transition-colors duration-200"
             >
-              Sign in with Google
+              Sign up with Google
             </Button>
           </div>
 
@@ -50,13 +49,35 @@ export default function LoginPage() {
             </div>
             <div className="relative flex justify-center text-sm">
               <span className="px-2 bg-white text-gray-500">
-                Or continue with email
+                Or sign up with email
               </span>
             </div>
           </div>
 
-          {/* Login Form */}
-          <div className="space-y-6">
+          {/* Register Form */}
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="min-h-[70px]">
+                <Input
+                  label="First Name"
+                  type="text"
+                  variant="bordered"
+                  isRequired
+                  size="sm"
+                  className="border-rose-300 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 focus:outline-none transition duration-200"
+                />
+              </div>
+              <div className="min-h-[70px]">
+                <Input
+                  label="Last Name"
+                  type="text"
+                  variant="bordered"
+                  size="sm"
+                  className="border-rose-300 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 focus:outline-none transition duration-200"
+                />
+              </div>
+            </div>
+
             <div className="min-h-[70px]">
               <Input
                 label="Email"
@@ -92,23 +113,28 @@ export default function LoginPage() {
               />
             </div>
 
-            <div className="flex items-center justify-between">
-              <Checkbox
-                defaultSelected
-                radius="sm"
-                className="focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:outline-none transition duration-200"
-              >
-                Remember me
-              </Checkbox>
-
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-medium text-rose-600 hover:text-rose-500 transition-colors duration-200"
-                >
-                  Forgot password?
-                </a>
-              </div>
+            <div className="min-h-[70px]">
+              <Input
+                label="Confirm Password"
+                type={showConfirmPassword ? "text" : "password"}
+                isRequired
+                variant="bordered"
+                size="sm"
+                className="border-rose-300 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 focus:outline-none transition duration-200"
+                endContent={
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff className="h-4 w-4 text-rose-400 hover:text-rose-500" />
+                    ) : (
+                      <Eye className="h-4 w-4 text-rose-400 hover:text-rose-500" />
+                    )}
+                  </button>
+                }
+              />
             </div>
 
             <Button
@@ -116,19 +142,19 @@ export default function LoginPage() {
               variant="bordered"
               className="w-full flex justify-center py-3 px-4 border border-rose-600 rounded-lg shadow-sm text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 focus:outline-none  transition-colors duration-200"
             >
-              Sign in
+              Create account
             </Button>
           </div>
 
-          {/* Sign Up Link */}
+          {/* Sign In Link */}
           <div className="text-center">
             <p className="text-sm text-gray-600">
-              Don't have an account?{" "}
+              Already have an account?{" "}
               <Link
-                href="/register"
+                href="/login"
                 className="font-medium text-rose-600 hover:text-rose-500 transition-colors duration-200"
               >
-                Sign up for free
+                Sign in instead
               </Link>
             </p>
           </div>
