@@ -8,12 +8,27 @@ import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { useAuthStore } from "@/store";
+import { toast } from "react-toastify";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   const { setData, loginData } = useAuthStore();
   const { email, password, remember } = loginData;
+
+  const handleLogin = () => {
+    // Perform login action
+    if (!email) {
+      toast.error("Please enter your email");
+      return;
+    }
+    if (!password) {
+      toast.error("Please enter your password");
+      return;
+    }
+
+    toast.warn("Login successful!");
+  };
 
   return (
     <main className="flex min-h-screen w-full bg-gradient-to-br from-rose-100 via-white to-purple-100">
@@ -122,6 +137,7 @@ export default function LoginPage() {
 
             <Button
               type="submit"
+              onPress={handleLogin}
               variant="bordered"
               className="w-full flex justify-center py-3 px-4 border border-rose-600 rounded-lg shadow-sm text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 focus:outline-none  transition-colors duration-200"
             >
