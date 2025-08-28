@@ -6,6 +6,7 @@ import { Providers } from "./providers";
 
 import { fontSans } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: {
@@ -39,6 +40,10 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
+        <ToastContainer
+          position="top-center"
+          autoClose={1700}
+        />
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <div className="relative w-screen flex flex-col h-screen">
             <main>{children}</main>

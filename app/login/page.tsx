@@ -111,12 +111,12 @@ export default function LoginPage() {
               </Checkbox>
 
               <div className="text-sm">
-                <a
-                  href="#"
+                <Link
+                  href="/forgotPassword"
                   className="font-medium text-rose-600 hover:text-rose-500 transition-colors duration-200"
                 >
                   Forgot password?
-                </a>
+                </Link>
               </div>
             </div>
 
