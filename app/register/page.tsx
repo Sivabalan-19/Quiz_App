@@ -6,8 +6,11 @@ import { Input } from "@heroui/input";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-
+import { useAuthStore } from "@/store";
 export default function RegisterPage() {
+  const { setData, registerData } = useAuthStore();
+  const { firstName, lastName, email, password, confirmPassword } =
+    registerData;
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -61,9 +64,13 @@ export default function RegisterPage() {
                 <Input
                   label="First Name"
                   type="text"
+                  value={firstName || ""}
                   variant="bordered"
                   isRequired
                   size="sm"
+                  onChange={(e) =>
+                    setData("register", { firstName: e.target.value })
+                  }
                   className="border-rose-300 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 focus:outline-none transition duration-200"
                 />
               </div>
@@ -72,6 +79,10 @@ export default function RegisterPage() {
                   label="Last Name"
                   type="text"
                   variant="bordered"
+                  value={lastName || ""}
+                  onChange={(e) =>
+                    setData("register", { lastName: e.target.value })
+                  }
                   size="sm"
                   className="border-rose-300 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 focus:outline-none transition duration-200"
                 />
@@ -83,6 +94,8 @@ export default function RegisterPage() {
                 label="Email"
                 type="email"
                 variant="bordered"
+                value={email || ""}
+                onChange={(e) => setData("register", { email: e.target.value })}
                 isRequired
                 size="sm"
                 className="border-rose-300 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 focus:outline-none transition duration-200"
@@ -94,6 +107,10 @@ export default function RegisterPage() {
                 label="Password"
                 type={showPassword ? "text" : "password"}
                 isRequired
+                value={password || ""}
+                onChange={(e) =>
+                  setData("register", { password: e.target.value })
+                }
                 variant="bordered"
                 size="sm"
                 className="border-rose-300 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 focus:outline-none transition duration-200"
@@ -120,6 +137,10 @@ export default function RegisterPage() {
                 isRequired
                 variant="bordered"
                 size="sm"
+                value={confirmPassword || ""}
+                onChange={(e) =>
+                  setData("register", { confirmPassword: e.target.value })
+                }
                 className="border-rose-300 focus:border-rose-500 focus:ring-2 focus:ring-rose-500 focus:outline-none transition duration-200"
                 endContent={
                   <button

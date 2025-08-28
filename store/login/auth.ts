@@ -3,6 +3,7 @@ import { create } from "zustand";
 interface LoginUser {
   email: string | null;
   password: string | null;
+  remember: boolean | null;
 }
 
 interface RegisterUser {
@@ -33,6 +34,7 @@ const useAuthStore = create<AuthState>((set) => ({
   loginData: {
     email: null,
     password: null,
+    remember: false,
   },
   registerData: {
     firstName: null,
@@ -98,6 +100,7 @@ const useAuthStore = create<AuthState>((set) => ({
       loginData: {
         email: null,
         password: null,
+        remember: false,
       },
       registerData: {
         firstName: null,

@@ -13,9 +13,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   const { setData, loginData } = useAuthStore();
-  const { email, password } = loginData;
-
-  console.log(email, password);
+  const { email, password, remember } = loginData;
 
   return (
     <main className="flex min-h-screen w-full bg-gradient-to-br from-rose-100 via-white to-purple-100">
@@ -103,6 +101,10 @@ export default function LoginPage() {
               <Checkbox
                 defaultSelected
                 radius="sm"
+                isSelected={remember || false}
+                onChange={(e) =>
+                  setData("login", { remember: e.target.checked })
+                }
                 className="focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:outline-none transition duration-200"
               >
                 Remember me
